@@ -4,9 +4,10 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Flatten, Dense
 import sys
 import os
+import matplotlib.pyplot as plt
 
 BATCH_SIZE = 10
-EPOCHS = 30
+EPOCHS = 2
 
 def main():
   if len(sys.argv) < 4:
@@ -85,7 +86,7 @@ def main():
   )
 
   """Train!"""
-  model.fit_generator(
+  history = model.fit_generator(
     training_gen,
     verbose=1,
     epochs=EPOCHS,
@@ -93,6 +94,24 @@ def main():
     validation_steps=5,
     validation_data=validation_gen
   )
+
+  # Plot training & validation accuracy values
+  plt.plot(history.history['acc'])
+  plt.plot(history.history['val_acc'])
+  plt.title('Model accuracy')
+  plt.ylabel('Accuracy')
+  plt.xlabel('Epoch')
+  plt.legend(['Train', 'Test'], loc='upper left')
+  plt.show()
+  # Plot training & validation loss value
+  plt.plot(history.history['loss'])
+  plt.plot(history.history['val_loss'])
+  plt.title('Model loss')
+  plt.ylabel('Loss')
+  plt.xlabel('Epoch')
+  plt.legend(['Train', 'Test'], loc='upper left')
+  plt.show()
+
 
   """Save our weights for later use"""
   model.save_weights('weights2.h5')
