@@ -12,25 +12,25 @@ def main():
   target = sys.argv[2]  
   output = sys.argv[3]
 
-  # each category
+  # Get each of the categories from the directory
   for directory in os.listdir(target):
     counter = 0
 
     output_path = os.path.join(output, directory)
     target_path = os.path.join(target, directory)
 
-    # create path
+    # Duplicate the directory structure
     if not os.path.exists(output_path):
       os.makedirs(output_path)
 
-    # each file per category
+    # Loop through all of the images and resize, then save
     for filename in os.listdir(target_path):
       with Image.open(os.path.join(target_path, filename)) as img:
         resized = img.resize((size, size), Image.ANTIALIAS)
         resized.save(os.path.join(output_path, str(counter) + '.jpg'))
         counter += 1
     
-    # reset counter
+    # Reset the naming counter
     counter = 0
 
 if __name__ == '__main__':
