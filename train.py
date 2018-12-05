@@ -6,8 +6,8 @@ import sys
 import os
 import matplotlib.pyplot as plt
 
-BATCH_SIZE = 10
-EPOCHS = 2
+BATCH_SIZE = 6
+EPOCHS = 30
 
 def main():
   if len(sys.argv) < 4:
@@ -103,7 +103,7 @@ def main():
   plt.xlabel('Epoch')
   plt.legend(['Train', 'Test'], loc='upper left')
   plt.show()
-  # Plot training & validation loss value
+  # Plot training & validation loss values
   plt.plot(history.history['loss'])
   plt.plot(history.history['val_loss'])
   plt.title('Model loss')
